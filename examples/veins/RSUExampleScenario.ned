@@ -69,11 +69,18 @@ network RSUExampleScenario extends Scenario
             parameters:
                 @display("p=1506,1600");
         }
+        R_3: Router6 {
+            parameters:
+                @display("p=1245,1455");
+        }
         ap_home: myrsu {
             	@display("i=device/accesspoint;is=n");
         }
         ap_1: myrsu {
             @display("p=1806,1900;i=device/accesspoint;is=n");
+        }
+        ap_2: myrsu {
+            @display("p=1145,1555;i=device/accesspoint;is=n");
         }
         CN[total_cn]: CorrespondentNode6;
         hub: EtherHub {
@@ -86,6 +93,7 @@ network RSUExampleScenario extends Scenario
                          //Home_Agent.ethIn++ <-- ethernetline <-- R_1.ethOut++;
 
         R_1.ethg++ <--> ethernetline <--> R_2.ethg++;
+        R_2.ethg++ <--> ethernetline <--> R_3.ethg++;
 
                                                        //R_2.ethOut++ --> ethernetline --> R_3.ethIn++;
                                                        //R_2.ethIn++ <-- ethernetline <-- R_3.ethOut++;
@@ -115,6 +123,9 @@ network RSUExampleScenario extends Scenario
 
         ap_1.ethg$o++ --> ethernetline --> R_1.ethg$i++;
         ap_1.ethg$i++ <-- ethernetline <-- R_1.ethg$o++;
+        
+        ap_2.ethg$o++ --> ethernetline --> R_3.ethg$i++;
+        ap_2.ethg$i++ <-- ethernetline <-- R_3.ethg$o++;
                                                         //AP_2.ethOut++ --> ethernetline --> R_2.ethIn++;
                                                         //AP_2.ethIn++ <-- ethernetline <-- R_2.ethOut++;
 
