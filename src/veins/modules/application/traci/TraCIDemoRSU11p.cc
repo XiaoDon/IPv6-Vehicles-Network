@@ -19,6 +19,7 @@
 //
 
 #include "veins/modules/application/traci/TraCIDemoRSU11p.h"
+#include <string>
 //#include "inet/transportlayer/contract/tcp/TCPCommand_m.h"
 //#include "inet/networklayer/common/L3Address.h"
 //#include "inet/networklayer/contract/ipv6/IPv6Address.h"
@@ -36,6 +37,7 @@ using inet::IPv6;
 using inet::IPv6Datagram;
 using inet::MACAddress;
 using inet::UDPBasicApp;
+using std::string;
 
 Define_Module(TraCIDemoRSU11p);
 
@@ -56,7 +58,7 @@ void TraCIDemoRSU11p::onBeacon(WaveShortMessage* wsm) {
 
 void TraCIDemoRSU11p::onData(WaveShortMessage* wsm) {
 	findHost()->getDisplayString().updateWith("r=16,green");
-	findHost()->bubble("get");
+	findHost()->bubble("get!");
 	//===============
 //	IPv6 *ipv6 = new IPv6();
 //	cModule *targetModule = getParentModule()->getSubmodule("networkLayer",0)->getSubmodule("ipv6",0);
@@ -81,7 +83,7 @@ void TraCIDemoRSU11p::onData(WaveShortMessage* wsm) {
 	//===============
 	cModule *targetModule = getParentModule()->getSubmodule("udpApp",0);
 	udpapp = check_and_cast<UDPBasicApp *>(targetModule);
-	udpapp->messag = const_cast<char*> (wsm->getWsmData());
+	udpapp->messag = (wsm->getWsmData());
 	//===============
 	annotations->scheduleErase(1, annotations->drawLine(wsm->getSenderPos(), mobi->getCurrentPosition(), "blue"));
 
