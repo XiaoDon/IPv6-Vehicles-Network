@@ -19,25 +19,20 @@
 //
 
 #include "veins/modules/application/traci/TraCIDemoRSU11p.h"
-#include <string>
-//#include "inet/transportlayer/contract/tcp/TCPCommand_m.h"
-//#include "inet/networklayer/common/L3Address.h"
-//#include "inet/networklayer/contract/ipv6/IPv6Address.h"
 #include "inet/networklayer/ipv6/IPv6.h"
 #include "inet/networklayer/ipv6/IPv6Datagram.h"
 #include "inet/linklayer/common/MACAddress.h"
 #include "inet/applications/udpapp/UDPBasicApp.h"
+#include <string>
 
 using Veins::AnnotationManagerAccess;
-//using inet::TCPCommand;
-//using inet::TCPOpenCommand;
-//using inet::L3Address;
-//using inet::IPv6Address;
 using inet::IPv6;
 using inet::IPv6Datagram;
 using inet::MACAddress;
 using inet::UDPBasicApp;
 using std::string;
+
+class TraCIDemoRSU11p;
 
 Define_Module(TraCIDemoRSU11p);
 
@@ -58,7 +53,6 @@ void TraCIDemoRSU11p::onBeacon(WaveShortMessage* wsm) {
 
 void TraCIDemoRSU11p::onData(WaveShortMessage* wsm) {
 	findHost()->getDisplayString().updateWith("r=16,green");
-	findHost()->bubble("get!");
 	//===============
 //	IPv6 *ipv6 = new IPv6();
 //	cModule *targetModule = getParentModule()->getSubmodule("networkLayer",0)->getSubmodule("ipv6",0);
@@ -84,6 +78,15 @@ void TraCIDemoRSU11p::onData(WaveShortMessage* wsm) {
 	cModule *targetModule = getParentModule()->getSubmodule("udpApp",0);
 	udpapp = check_and_cast<UDPBasicApp *>(targetModule);
 	udpapp->messag = (wsm->getWsmData());
+	//模拟远程通信，通知其他路边单元进行广播
+	string apname[3] = {"ap_home","ap_1","ap_2"};
+	for(int i =0;i<3;i++){
+	    cModule *targetModule1 = simulation.getModuleByPath(apname[i].c_str())->getSubmodule("appl",0);
+	    rsuappl = check_and_cast<TraCIDemoRSU11p *>(targetModule1);
+	    rsuappl->sendMessage(wsm->getWsmData());
+	}
+
+//	simulation.getContextModule()->getParentModule()->bubble(">>>>");
 	//===============
 	annotations->scheduleErase(1, annotations->drawLine(wsm->getSenderPos(), mobi->getCurrentPosition(), "blue"));
 
@@ -91,7 +94,9 @@ void TraCIDemoRSU11p::onData(WaveShortMessage* wsm) {
 }
 
 void TraCIDemoRSU11p::sendMessage(std::string blockedRoadId) {
+    Enter_Method_Silent();
 	sentMessage = true;
+	findHost()->bubble(blockedRoadId.c_str());//rsu间远程调用结果显示
 	t_channel channel = dataOnSch ? type_SCH : type_CCH;
 	WaveShortMessage* wsm = prepareWSM("data", dataLengthBits, channel, dataPriority, -1,2);
 	wsm->setWsmData(blockedRoadId.c_str());

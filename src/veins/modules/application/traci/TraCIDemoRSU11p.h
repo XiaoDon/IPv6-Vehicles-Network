@@ -30,19 +30,22 @@ using Veins::AnnotationManager;
 using inet::TCPGenericSrvApp;
 using inet::UDPBasicApp;
 
+class TraCIDemoRSU11p;
+
 /**
  * Small RSU Demo using 11p
  */
 class TraCIDemoRSU11p : public BaseWaveApplLayer {
 	public:
 		virtual void initialize(int stage);
+        TraCIDemoRSU11p* rsuappl;
 	protected:
 		AnnotationManager* annotations;
 		BaseMobility* mobi;
 		bool sentMessage;
 		TCPGenericSrvApp* tcpapp;
 		UDPBasicApp* udpapp;
-	protected:
+	public:
 		virtual void onBeacon(WaveShortMessage* wsm);
 		virtual void onData(WaveShortMessage* wsm);
 		void sendMessage(std::string blockedRoadId);
