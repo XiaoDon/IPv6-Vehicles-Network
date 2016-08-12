@@ -6,16 +6,33 @@ Licensed under the Creative Commons Attribution-ShareAlike 2.0 license <http://c
 -->
 <!--
 <routes>
-   <vType id="vtype0" accel="2.6" decel="4.5" sigma="0.5" length="2.5" minGap="2.5" maxSpeed="14" color="1,1,0"/>
+   <vType id="vtype0" accel="2.6" decel="4.5" sigma="0.5" length="2.5" minGap="2.5" maxSpeed="144" color="1,1,0"/>
    <route id="route0" edges="-39539626 -5445204#2 -5445204#1 113939244#2 -126606716 23339459 30405358#1 85355912 85355911#0 85355911#1 30405356 5931612 30350450#0 30350450#1 30350450#2 4006702#0 4006702#1 4900043 4900041#1"/>
    <flow id="flow0" type="vtype0" route="route0" begin="1" period="3" number="195"/>
 </routes>
 -->
 <routes>
-   <vType id="vtype0" accel="2.6" decel="4.5" sigma="0.5" length="2.5" minGap="2.5" maxSpeed="144" color="1,1,0"/>
-   <route id="route0" edges="-39539626 -5445204#2 -5445204#1 113939244#2 -126606716 23339459 30405358#1 85355912 85355911#0 85355911#1 30405356 5931612 30350450#0 30350450#1 30350450#2 4006702#0 4006702#1 4900043 4900041#1"/>
+   <vType id="vtype0" accel="4.6" decel="4.5" sigma="0.5" length="2.5" minGap="2.5" maxSpeed="244" color="1,1,0"/>
+   <vType id="vtype1" accel="4.6" decel="3.5" sigma="0.5" length="2.5" minGap="3" maxSpeed="130" color="1,1,0"/>
+   <!-- <route id="route0" edges="-39539626 -5445204#2 -5445204#1 113939244#2 -126606716 23339459 30405358#1 85355912 85355911#0 85355911#1 30405356 5931612 30350450#0 30350450#1 30350450#2 4006702#0 4006702#1 4900043 4900041#1"/>
    <route id="route1" edges="32271499 41973977 -31353573#1 4006673 23605600#0 23605600#1 23605600#2 29900567 31401017#0 "/>
+   <route id="route2" edges="8364476 30350450#0 -3998645#2 -3998615#3 -3998615#2 -3998615#1 -3998615#0 -3013106#1"/>
+   <route id="route3" edges="30350448 8364476 30350450#0 -3998645#2 -3998615#3 -3998615#2 3998643#2 30350450#2 4006702#0"/>
+   <route id="route4" edges="28768072 94344941 28768072 -28613737 -4006702#0 -3013106#2 3998615#0 3998615#1"/>
+   <route id="route5" edges="28613727#0 28613727#1 -94344940#0 28768072 -28613737 4006702#1 4006702#2"/> 
    <flow id="flow0" type="vtype0" route="route0" begin="0" period="3" number="195"/>
-    <!--<flow id="flow1" type="vtype0" route="route1" begin="0" period="2" number="95"/>-->
-</routes>
+   <flow id="flow1" type="vtype0" route="route1" begin="0" period="2" number="95"/>
+   <flow id="flow2" type="vtype0" route="route2" begin="0" period="2" number="50"/>
+   <flow id="flow3" type="vtype0" route="route3" begin="0" period="2" number="100"/>
+   <flow id="flow4" type="vtype0" route="route4" begin="0" period="2" number="100"/>
+   <flow id="flow5" type="vtype0" route="route5" begin="0" period="3" number="195"/> -->
 
+   <route id="route0" edges="4686970#0 4686970#1 122161381 30350448 30350449 4047309 30751813"/>
+   <route id="route1" edges="85355912 85355911#0 85355911#1 30405356 5931612 30350450#0"/>
+   <route id="route2" edges="30405356 25472079 30405352 30350445"/>
+   <route id="route4" edges="4047446#0 4047446#1 5931612"/>
+   <flow id="flow0" type="vtype1" route="route0" begin="0" period="1" number="10"/>
+   <flow id="flow1" type="vtype0" route="route1" begin="0" period="2" number="10"/>
+   <!-- <flow id="flow2" type="vtype0" route="route2" begin="0" period="2" number="10"/> -->
+   <flow id="flow4" type="vtype0" route="route4" begin="0" period="2" number="10"/>
+</routes>

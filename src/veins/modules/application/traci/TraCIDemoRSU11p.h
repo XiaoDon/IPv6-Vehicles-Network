@@ -46,6 +46,7 @@ class TraCIDemoRSU11p : public BaseWaveApplLayer {
 		TCPGenericSrvApp* tcpapp;
 		UDPBasicApp* udpapp;
 	public:
+		virtual void handleMessage( cMessage* );
 		virtual void onBeacon(WaveShortMessage* wsm);
 		virtual void onData(WaveShortMessage* wsm);
 		void sendMessage(std::string blockedRoadId);

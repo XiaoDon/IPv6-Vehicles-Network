@@ -37,14 +37,15 @@ class TraCIDemoRSU11p;
 Define_Module(TraCIDemoRSU11p);
 
 void TraCIDemoRSU11p::initialize(int stage) {
-	BaseWaveApplLayer::initialize(stage);
-	if (stage == 0) {
-		mobi = dynamic_cast<BaseMobility*> (getParentModule()->getSubmodule("mobility"));
-		ASSERT(mobi);
-		annotations = AnnotationManagerAccess().getIfExists();
-		ASSERT(annotations);
-		sentMessage = false;
-	}
+    BaseWaveApplLayer::initialize(stage);
+    if (stage == 0) {
+        mobi = dynamic_cast<BaseMobility*>(getParentModule()->getSubmodule(
+                "mobility"));
+        ASSERT(mobi);
+        annotations = AnnotationManagerAccess().getIfExists();
+        ASSERT(annotations);
+        sentMessage = false;
+    }
 }
 
 void TraCIDemoRSU11p::onBeacon(WaveShortMessage* wsm) {
@@ -52,8 +53,8 @@ void TraCIDemoRSU11p::onBeacon(WaveShortMessage* wsm) {
 }
 
 void TraCIDemoRSU11p::onData(WaveShortMessage* wsm) {
-	findHost()->getDisplayString().updateWith("r=16,green");
-	//===============
+    findHost()->getDisplayString().updateWith("r=16,green");
+    //===============
 //	IPv6 *ipv6 = new IPv6();
 //	cModule *targetModule = getParentModule()->getSubmodule("networkLayer",0)->getSubmodule("ipv6",0);
 //	ipv6 = check_and_cast<IPv6 *>(targetModule);
@@ -74,34 +75,53 @@ void TraCIDemoRSU11p::onData(WaveShortMessage* wsm) {
 //	cmd->setConnId(111);cmd->setDataTransferMode(1);
 //	ms->setControlInfo(cmd);
 //	tcpapp->sendBack(ms);
-	//===============
+    //===============
 	cModule *targetModule = getParentModule()->getSubmodule("udpApp",0);
 	udpapp = check_and_cast<UDPBasicApp *>(targetModule);
 	udpapp->messag = (wsm->getWsmData());
-	//模拟远程通信，通知其他路边单元进行广播
-	string apname[3] = {"ap_home","ap_1","ap_2"};
-	for(int i =0;i<3;i++){
-	    cModule *targetModule1 = simulation.getModuleByPath(apname[i].c_str())->getSubmodule("appl",0);
-	    rsuappl = check_and_cast<TraCIDemoRSU11p *>(targetModule1);
-	    rsuappl->sendMessage(wsm->getWsmData());
-	}
+//	sleep(2);
+//	udpapp->messag = ("666");
+    //模拟远程通信，通知其他路边单元进行广播
+//	string apname[3] = {"ap_home","ap_1","ap_2"};
+//	for(int i =0;i<3;i++){
+//	    cModule *targetModule1 = simulation.getModuleByPath(apname[i].c_str())->getSubmodule("appl",0);
+//	}
 
 //	simulation.getContextModule()->getParentModule()->bubble(">>>>");
-	//===============
-	annotations->scheduleErase(1, annotations->drawLine(wsm->getSenderPos(), mobi->getCurrentPosition(), "blue"));
+    //===============
+    annotations->scheduleErase(1,
+            annotations->drawLine(wsm->getSenderPos(),
+                    mobi->getCurrentPosition(), "blue"));
 
-	if (!sentMessage) sendMessage(wsm->getWsmData());
+    if (!sentMessage)
+        sendMessage(wsm->getWsmData());
+
+    /////////////////////
+//    cModule *targetModule1 = simulation.getModuleByPath("ap_2")->getSubmodule(
+//                "appl", 0);
+//    rsuappl = check_and_cast<TraCIDemoRSU11p *>(targetModule1);
+//    rsuappl->sendMessage(wsm->getWsmData());
+
+    ////////////////////////
+
 }
 
 void TraCIDemoRSU11p::sendMessage(std::string blockedRoadId) {
-    Enter_Method_Silent();
-	sentMessage = true;
-	findHost()->bubble(blockedRoadId.c_str());//rsu间远程调用结果显示
-	t_channel channel = dataOnSch ? type_SCH : type_CCH;
-	WaveShortMessage* wsm = prepareWSM("data", dataLengthBits, channel, dataPriority, -1,2);
-	wsm->setWsmData(blockedRoadId.c_str());
-	sendWSM(wsm);
+    Enter_Method_Silent
+    ();
+    sentMessage = true;
+//    findHost()->bubble(blockedRoadId.c_str());	//rsu间远程调用结果显示
+    t_channel channel = dataOnSch ? type_SCH : type_CCH;
+    WaveShortMessage* wsm = prepareWSM("data", dataLengthBits, channel,
+            dataPriority, -1, 2);
+    wsm->setWsmData(blockedRoadId.c_str());
+    sendWSM(wsm);
 }
 void TraCIDemoRSU11p::sendWSM(WaveShortMessage* wsm) {
-	sendDelayedDown(wsm,individualOffset);
+    sendDelayedDown(wsm, individualOffset);
+}
+void TraCIDemoRSU11p::handleMessage( cMessage* msg){
+    if(msg->getName() == "appludp"){
+        sendMessage(msg->getName());
+    }
 }

@@ -37,6 +37,8 @@
 #include "veins/modules/mobility/traci/TraCIConnection.h"
 #include "veins/modules/mobility/traci/TraCICoord.h"
 
+
+using Veins::AnnotationManager;
 /**
  * @brief
  * Creates and moves nodes controlled by a TraCI server.
@@ -102,6 +104,8 @@ class TraCIScenarioManager : public cSimpleModule
 		}
 
 	protected:
+		AnnotationManager* annotations;
+		Coord* c11, * c12,* c13, * c14,* c21, * c22,* c23, * c24;
 		bool debug; /**< whether to emit debug messages */
 		simtime_t connectAt; /**< when to connect to TraCI server (must be the initial timestep of the server) */
 		simtime_t firstStepAt; /**< when to start synchronizing with the TraCI server (-1: immediately after connecting) */

@@ -24,6 +24,16 @@ import org.car2x.veins.base.modules.*;
 import org.car2x.veins.modules.nic.Nic80211p;
 import inet.mobility.contract.IMobility;
 
+module velocitySensor
+{
+    @display("bgi=device/wifilaptop");
+}
+module temperatureSensor
+{
+}
+module oilSensor
+{
+}
 module Car
 {
     parameters:
@@ -36,22 +46,29 @@ module Car
     submodules:
         appl: <applType> like org.car2x.veins.base.modules.IBaseApplLayer {
             parameters:
-                @display("p=60,50");
+                @display("p=60,50;i=device/card");
         }
-
         nic: <nicType> like org.car2x.veins.modules.nic.INic80211p {
             parameters:
                 @display("p=60,166");
         }
-
+        velocitysensor: velocitySensor {
+            @display("p=166,59;i=block/wrx");
+        }
+        temperaturesensor: temperatureSensor {
+            @display("p=166,160;i=block/network2");
+        }
+        oilSensor: oilSensor {
+            @display("p=267,59;i=block/sink");
+        }
         veinsmobility: <veinsmobilityType> like IMobility {
             parameters:
-                @display("p=130,172;i=block/cogwheel");
+                @display("p=267,160;i=block/cogwheel");
         }
-        
-        
 
-    connections:
+
+
+    connections allowunconnected:
         nic.upperLayerOut --> appl.lowerLayerIn;
         nic.upperLayerIn <-- appl.lowerLayerOut;
         nic.upperControlOut --> appl.lowerControlIn;

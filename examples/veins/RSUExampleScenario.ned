@@ -73,14 +73,63 @@ network RSUExampleScenario extends Scenario
             parameters:
                 @display("p=1245,1455");
         }
+        R_4: Router6 {
+            parameters:
+                @display("p=433.3,633.3");
+        }
+        R_5: Router6 {
+            parameters:
+                @display("p=1099.9,633.3");
+        }
+        R_6: Router6 {
+            parameters:
+                @display("p=1766.7,633.3");
+        }
+        R_7: Router6 {
+            parameters:
+                @display("p=533.9,1199.3");
+        }
+        R_8: Router6 {
+            parameters:
+                @display("p=1866.7,1199.3");
+        }
+        R_9: Router6 {
+            parameters:
+                @display("p=333,1699.3");
+        }
+        R_10: Router6 {
+            parameters:
+                @display("p=999,1699.3");
+        }
         ap_home: myrsu {
             	@display("i=device/accesspoint;is=n");
         }
         ap_1: myrsu {
-            @display("p=1806,1900;i=device/accesspoint;is=n");
+            @display("i=device/accesspoint;is=n");
         }
         ap_2: myrsu {
-            @display("p=1145,1555;i=device/accesspoint;is=n");
+            @display("i=device/accesspoint;is=n");
+        }
+        ap_4: myrsu {
+            @display("i=device/accesspoint;is=n");
+        }
+        ap_5: myrsu {
+            @display("i=device/accesspoint;is=n");
+        }
+        ap_6: myrsu {
+            @display("i=device/accesspoint;is=n");
+        }
+        ap_7: myrsu {
+            @display("i=device/accesspoint;is=n");
+        }
+        ap_8: myrsu {
+            @display("i=device/accesspoint;is=n");
+        }
+        ap_9: myrsu {
+            @display("i=device/accesspoint;is=n");
+        }
+        ap_10: myrsu {
+            @display("i=device/accesspoint;is=n");
         }
         CN[total_cn]: CorrespondentNode6;
         hub: EtherHub {
@@ -94,6 +143,13 @@ network RSUExampleScenario extends Scenario
 
         R_1.ethg++ <--> ethernetline <--> R_2.ethg++;
         R_2.ethg++ <--> ethernetline <--> R_3.ethg++;
+        Home_Agent.ethg++ <--> ethernetline <--> R_5.ethg++;
+        R_4.ethg++ <--> ethernetline <--> R_5.ethg++;
+        R_5.ethg++ <--> ethernetline <--> R_6.ethg++;
+        R_7.ethg++ <--> ethernetline <--> Home_Agent.ethg++;
+        R_8.ethg++ <--> ethernetline <--> Home_Agent.ethg++;
+        R_9.ethg++ <--> ethernetline <--> R_10.ethg++;
+        R_10.ethg++ <--> ethernetline <--> R_3.ethg++;
 
                                                        //R_2.ethOut++ --> ethernetline --> R_3.ethIn++;
                                                        //R_2.ethIn++ <-- ethernetline <-- R_3.ethOut++;
@@ -124,8 +180,29 @@ network RSUExampleScenario extends Scenario
         ap_1.ethg$o++ --> ethernetline --> R_1.ethg$i++;
         ap_1.ethg$i++ <-- ethernetline <-- R_1.ethg$o++;
         
-        ap_2.ethg$o++ --> ethernetline --> R_3.ethg$i++;
-        ap_2.ethg$i++ <-- ethernetline <-- R_3.ethg$o++;
+        ap_2.ethg$o++ --> ethernetline --> R_2.ethg$i++;
+        ap_2.ethg$i++ <-- ethernetline <-- R_2.ethg$o++;
+        
+        ap_4.ethg$o++ --> ethernetline --> R_4.ethg$i++;
+        ap_4.ethg$i++ <-- ethernetline <-- R_4.ethg$o++;
+        
+        ap_5.ethg$o++ --> ethernetline --> R_5.ethg$i++;
+        ap_5.ethg$i++ <-- ethernetline <-- R_5.ethg$o++;
+        
+        ap_6.ethg$o++ --> ethernetline --> R_6.ethg$i++;
+        ap_6.ethg$i++ <-- ethernetline <-- R_6.ethg$o++;
+        
+        ap_7.ethg$o++ --> ethernetline --> R_7.ethg$i++;
+        ap_7.ethg$i++ <-- ethernetline <-- R_7.ethg$o++;
+        
+        ap_8.ethg$o++ --> ethernetline --> R_8.ethg$i++;
+        ap_8.ethg$i++ <-- ethernetline <-- R_8.ethg$o++;
+        
+        ap_9.ethg$o++ --> ethernetline --> R_9.ethg$i++;
+        ap_9.ethg$i++ <-- ethernetline <-- R_9.ethg$o++;
+        
+        ap_10.ethg$o++ --> ethernetline --> R_10.ethg$i++;
+        ap_10.ethg$i++ <-- ethernetline <-- R_10.ethg$o++;
                                                         //AP_2.ethOut++ --> ethernetline --> R_2.ethIn++;
                                                         //AP_2.ethIn++ <-- ethernetline <-- R_2.ethOut++;
 

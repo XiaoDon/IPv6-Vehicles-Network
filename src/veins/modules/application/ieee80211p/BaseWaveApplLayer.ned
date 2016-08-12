@@ -53,4 +53,8 @@ simple BaseWaveApplLayer like IBaseApplLayer
         output lowerLayerOut; // to mac layer
         input lowerControlIn;
         output lowerControlOut;
+        
+        //添加链接udpapp的门
+        input inudp;
+        output toudp;
 }

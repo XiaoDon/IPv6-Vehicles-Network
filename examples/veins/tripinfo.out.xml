@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 2016/7/14 19:46:55 by SUMO gui Version 0.25.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
+
+    <input>
+        <net-file value="C:\Extra\veins-4.4\examples\veins\erlangen.net.xml"/>
+        <route-files value="C:\Extra\veins-4.4\examples\veins\erlangen.rou.xml"/>
+        <additional-files value="C:\Extra\veins-4.4\examples\veins\erlangen.poly.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="C:\Extra\veins-4.4\examples\veins\tripinfo.out.xml"/>
+        <save-state.prefix value="C:\Extra\veins-4.4\examples\veins\state"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="900"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <emissions>
+        <phemlight-path value="C:\Extra\veins-4.4\examples\veins\./PHEMlight/"/>
+    </emissions>
+
+    <gui_only>
+        <start value="true"/>
+    </gui_only>
+
+</configuration>

@@ -40,28 +40,31 @@ module myrsu extends CorrespondentNode6
         @display("i=device/accesspoint;is=n");
         int eth_num = 1;
         mobilityType = "BaseMobility";
-        
+
     gates:
         input veinsradioIn; // gate for sendDirect
         //
     submodules:
         appl: <applType> like org.car2x.veins.base.modules.IBaseApplLayer {
             parameters:
-                @display("p=60,50");
+                @display("p=149,79");
         }
 
         nic: <nicType> like org.car2x.veins.modules.nic.INic80211p {
             parameters:
-                @display("p=60,166");
+                @display("p=147,250");
         }
-        
+
     connections allowunconnected:
         nic.upperLayerOut --> appl.lowerLayerIn;
         nic.upperLayerIn <-- appl.lowerLayerOut;
         nic.upperControlOut --> appl.lowerControlIn;
         nic.upperControlIn <-- appl.lowerControlOut;
-        
+
 
         veinsradioIn --> nic.radioIn;
         
+		//udpappÓëapplÏàÁ¬
+		appl.toudp --> udpApp[0].inappl;
+		appl.inudp <-- udpApp[0].toappl;
 }

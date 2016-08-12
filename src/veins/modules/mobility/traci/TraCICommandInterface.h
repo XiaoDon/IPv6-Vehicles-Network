@@ -73,6 +73,7 @@ class TraCICommandInterface
 
 				double getCurrentTravelTime();
 				double getMeanSpeed();
+				int getVehicleNumber();
 
 			protected:
 				TraCICommandInterface* traci;

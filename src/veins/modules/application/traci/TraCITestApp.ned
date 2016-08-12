@@ -36,4 +36,8 @@ simple TraCITestApp like IBaseApplLayer
 		output lowerLayerOut; // to network layer
 		input lowerControlIn; // control from network layer
 		output lowerControlOut; // control to network layer
+		
+		//新加连接到udpapp的门
+        input inudp;
+        output toudp;
 }
